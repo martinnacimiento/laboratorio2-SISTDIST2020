@@ -1,20 +1,35 @@
-# vscode-remote-java
-# Visión
-Esta configuración te permite armar un entorno de desarrollo remoto en un contenedor de docker que se ejecuta localmente en tu computadora. Es remoto porque tanto Java, Maven y todas las extensiones de vscode para Java se instalan en el Contenedor y en tu máquina local no tendrás señales de tener instalado ninguno de ellos.
-## Qué tiene dentro?
-- Openjdk-15
-- Maven 3.6.3
-- Extensión de vscode: vscjava.vscode-java-pack
-## Requisitos 
-- Docker
+# Laboratorio 2
 
-## Pasos
-1. Dale una estrellita⭐ al repo (si no no te va a funcionar).
-2. Clona el repositorio.
-3. Abrí el directorio con vscode.
-4. Vscode te pedirá que instales un pack de [extensiones](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack).
-5. Ejecuta el comando re-abrir en el contenedor.
-6. La primera vez tarda un poco en levantar el contenedor, por tener que bajar la imagen del openjdk, preparar la imagen del contenedor, instalar el servidor remoto de vscode y levantar el contenedor. Las próximas veces será muchísimo mas rápido.
+# Integrantes
+- Nacimiento, Francisco Martin
+- Senghaas, Evelin Yaneth
 
-## Más info
-Me inspiré y modifiqué del repo de microsoft asi que para más info podes consultar su [repo](https://github.com/microsoft/vscode-remote-try-java).
+# API del Almacenamiento key-value
+
+| Metodo | Parametros   | Retorno      | Ejemplo          |
+| ------ | ------------ | ------------ | ---------------- |
+| save   | (key, value) | 0, 1, error  | save(key, value) |
+| get    | (key)        | value, error | value = get(key) |
+| delete | (key)        | value. error | delete(key)      |
+
+
+# Archivo thrift
+```thrift
+namespace java edu.unam.app.forwarding
+
+exception Excep {
+	1: i32 id,
+	2: string detail
+}
+
+service Forwarding {
+	#Guardar clave y valor en el almacen
+    i32 save(1: string key, 2: string value) throws (1: Excep e),
+
+    #Recuperar un valor mediante su clave
+    string get(1: string key) throws (1: Excep e),
+
+    #Elimina una clave y valor mediante la clave
+    string destroy(1: string key) throws (1: Excep e)
+}
+```

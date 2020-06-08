@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  forwarding:
+    image: maven:3.6.3-openjdk-15
+    depends_on:
+      - store
+    entrypoint: ["java", "-jar", "/app/app-1.0-SNAPSHOT.jar"]
+    command: ["tu eres un reenviador"]
+    networks:
+      - sd2020
+    ports:
+        - "15000-15100:15000"
+    volumes:
+      - ./app/target:/app/
+  store:
+    image: maven:3.6.3-openjdk-15
+    entrypoint: ["java", "-jar", "/app/app-1.0-SNAPSHOT.jar"]
+    volumes:
+      - ./app/target:/app/
+    networks:
+      - sd2020
+networks:
+  sd2020:
+    driver: bridge

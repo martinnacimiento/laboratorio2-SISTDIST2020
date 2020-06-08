@@ -1,5 +1,5 @@
 {
-	"name": "Java Sample",
+	"name": "Laboratorio 2",
 	"dockerFile": "Dockerfile",
 
 	// Set *default* container specific settings.json values on container create.
@@ -10,7 +10,10 @@
 	
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
-		"vscjava.vscode-java-pack"
+		"vscjava.vscode-java-pack",
+		"docsmsft.docs-markdown",
+		"yzhang.markdown-all-in-one",
+		"mrkou47.thrift-syntax-support"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
