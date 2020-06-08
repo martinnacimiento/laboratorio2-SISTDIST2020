@@ -16,8 +16,10 @@ public class ForwardingHandler implements Iface {
         try {
             StoreInterface store = (StoreInterface) Naming.lookup("//store:15000/store");
             return store.save(key, value);
-        } catch (MalformedURLException | RemoteException | NotBoundException | Error e) {
+        } catch (MalformedURLException | NotBoundException | Error e) {
             throw new Excep(0, "guardar - error en formato.");
+        } catch (RemoteException e) {
+            throw new Excep(3, "instancia principal caída.");
         }
     }
 
@@ -26,8 +28,10 @@ public class ForwardingHandler implements Iface {
         try {
             StoreInterface store = (StoreInterface) Naming.lookup("//store:15000/store");
             return store.get(key);
-        } catch (MalformedURLException | RemoteException | NotBoundException | Error e) {
+        } catch (MalformedURLException | NotBoundException | Error e) {
             throw new Excep(1, "obtener - clave no existe.");
+        } catch (RemoteException e) {
+            throw new Excep(3, "instancia principal caída.");
         }
     }
 
@@ -36,8 +40,10 @@ public class ForwardingHandler implements Iface {
         try {
             StoreInterface store = (StoreInterface) Naming.lookup("//store:15000/store");
             return store.delete(key);
-        } catch (MalformedURLException | RemoteException | NotBoundException | Error e) {
+        } catch (MalformedURLException | NotBoundException | Error e) {
             throw new Excep(2, "eliminar - clave no existe.");
+        } catch (RemoteException e) {
+            throw new Excep(3, "instancia principal caída.");
         }
     }
 }

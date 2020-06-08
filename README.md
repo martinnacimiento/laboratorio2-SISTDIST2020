@@ -26,6 +26,7 @@ Para utilizar el proyecto usted debe:
 - Una vez listo el proyecto ejecuta `docker-compose up --scale forwarding=3` para probarlo. Puede escalar el servicio de servidores de reenvio *forwarding* al numero que desee.
 - Ahora que tiene listo el almacen clave-valor y los servidores de reenvio. Debe instalar con pip la depencia de thrift con el siguiente comando `pip install -r requirements.txt`, debe tener en cuenta la version de pip que utilice, puede variar a `pip3` si tiene la version 3.
 - Una vez finalizado la instalacion, debe ejecutar `python client.py` para empezar a utlizar el cliente. Tenga en cuenta la version de python que utilice, por lo que puede variar el comando.
+- Para una guia de como utilizar el cliente, vea la seccion del cliente.
 
 # Estructura del proyecto 👷
 ```
@@ -44,7 +45,7 @@ El archivo `App.java` es el inicio del proyecto, en el se encuentra lo logica pa
 ## Store 🏪
 La logica del almacen clave-valor se encuentra en `/store/Store.java` en donde se implementa la interface de RMI `/store/StoreInterface.java`. Los metodos que deben implementar son `save` para guardar una clave y un valor, `get` para recuperar un valor mediante una clave y `delete` para borrar una clave y un valor mediante la clave. Para mas informacion, el proxima seccion se muestra la API del alcenamiento.
 
-## API del Almacenamiento clave-valor
+### API del Almacenamiento clave-valor
 
 | Metodo | Parametros   | Retorno      | Ejemplo          |
 | ------ | ------------ | ------------ | ---------------- |
@@ -99,3 +100,30 @@ service Forwarding {
 ```
 # Archivo docker-compose 🐳
 El el archivo `/docker-compose.yml` puede encontrar informacion de como se encuentra construido el entorno de ejecucion el proyecto.
+
+# Cliente magico 🐍
+El cliente consiste en un CLI (Interface de Linea de Comandos) implementado con Python.
+
+Cuando inicie el cliente lo primero que vera es:
+
+![](img/init_cli.png)
+
+Para saber que puertos tiene disponible puede utilizar el comando `docker ps` estan dentro del rango de 15000-15100, pero debe ver los que estan disponibles ya que no todos estan en escucha, depende a cuanto escalo el servicio *forwarding*.
+
+En el caso de no dar con un puerto en escucha, no se preocupe, que sera informado y podra volver a ingresar un puerto que si este en escucha:
+
+![](img/error_port.png)
+
+Ingresando un puerto en escucha vera el siguiente menu:
+
+![](img/menu.png)
+
+Los errores que pueden tener durante la opeacion con el cliente son los siguientes:
+
+![](img/errors.png)
+
+Durante operaciones normales podra ver las siguientes respuestas:
+
+![](img/normal.png)
+
+![](img/exit.png)
