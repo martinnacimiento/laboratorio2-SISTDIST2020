@@ -13,7 +13,8 @@
 		"vscjava.vscode-java-pack",
 		"docsmsft.docs-markdown",
 		"yzhang.markdown-all-in-one",
-		"mrkou47.thrift-syntax-support"
+		"mrkou47.thrift-syntax-support",
+		"perkovec.emoji"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.

@@ -1,3 +1,4 @@
+# Para el cliente python se comenta la linea de abajo para generar los archivos thrift
 namespace java edu.unam.app.forwarding
 
 exception Excep {
