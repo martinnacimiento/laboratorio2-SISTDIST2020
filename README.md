@@ -13,7 +13,7 @@
     - [Forwarding 🔄](#forwarding-)
   - [Archivo thrift](#archivo-thrift)
   - [Archivo docker-compose 🐳](#archivo-docker-compose-)
-  - [Cliente magico 🐍](#cliente-magico-)
+  - [Cliente mágico 🐍](#cliente-mágico-)
 
 ## Avances 🌱
 
@@ -42,10 +42,10 @@ Para utilizar el proyecto usted debe:
 
 - Clonar el repositorio.
 - Una vez clonado el repo ejecuta en tu consola (bash) `sh init.sh`. Podes ir a prepararte tu bebida favorita, comida y mirarte un capitulo de tu serie hasta que el comando termine de preparar el proyecto.
-- Una vez listo el proyecto ejecuta `docker-compose up --scale forwarding=3` para probarlo. Puede escalar el servicio de servidores de reenvio *forwarding* al numero que desee.
-- Ahora que tiene listo el almacen clave-valor y los servidores de reenvio. Debe instalar con pip la depencia de thrift con el siguiente comando `pip install -r requirements.txt`, debe tener en cuenta la version de pip que utilice, puede variar a `pip3` si tiene la version 3.
-- Una vez finalizado la instalacion, debe ejecutar `python client.py` para empezar a utlizar el cliente. Tenga en cuenta la version de python que utilice, por lo que puede variar el comando.
-- Para una guia de como utilizar el cliente, vea la seccion del cliente.
+- Una vez listo el proyecto ejecuta `docker-compose up --scale forwarding=3` para probarlo. Puede escalar el servicio de servidores de reenvío *forwarding* al numero que desee.
+- Ahora que tiene listo el almacen clave-valor y los servidores de reenvío. Debe instalar con pip la dependencia de thrift con el siguiente comando `pip install -r requirements.txt`, debe tener en cuenta la version de pip que utilice, puede variar a `pip3` si tiene la version 3.
+- Una vez finalizado la instalación, debe ejecutar `python client.py` para empezar a utilizar el cliente. Tenga en cuenta la version de python que utilice, por lo que puede variar el comando.
+- Para una guiá de como utilizar el cliente, vea la sección del [cliente](#cliente-mágico-).
 
 ## Estructura del proyecto 👷
 ```
@@ -56,17 +56,17 @@ app/
         App.java
 client.py
 ```
-Dentro del directorio `app/src/` se encuentra toda la logica del almacenamiento clave-valor en el directorio `store/` y la logica de los servidores de reenvio en el directorio `forwarding/`. El almacenamiento de clave-valor y los servidores de reenvio estan implementados en el lenguaje **Java** ☕ y comunican a traves de **RMI**. Los servidores de reenvio y los clientes se comunican a traves de **Apache Thrift**, estando el cliente implementado en **Python** 🐍.
+Dentro del directorio `app/src/` se encuentra toda la lógica del almacenamiento clave-valor en el directorio `store/` y la logica de los servidores de reenvío en el directorio `forwarding/`. El almacenamiento de clave-valor y los servidores de reenvío están implementados en el lenguaje **Java** ☕ y comunican a traves de **RMI**. Los servidores de reenvío y los clientes se comunican a traves de **Apache Thrift**, estando el cliente implementado en **Python** 🐍.
 
 ### App 🔀
-El archivo `App.java` es el inicio del proyecto, en el se encuentra lo logica para determinar si el proyecto se ejecuta como un almacen de clave-valor o como una servidor de reenvio, mediante el recibiendo o no de un parametro, si recibe un parametro debe ejecutarse como un servidor de reenvio, en caso contrario como un almacenamiento clave-valor.
+El archivo `App.java` es el inicio del proyecto, en el se encuentra lo lógica para determinar si el proyecto se ejecuta como un almacén de clave-valor o como una servidor de reenvío, mediante el recibiendo o no de un parámetro, si recibe un parámetro debe ejecutarse como un servidor de reenvío, en caso contrario como un almacenamiento clave-valor.
 
 ### Store 🏪
-La logica del almacen clave-valor se encuentra en `/store/Store.java` en donde se implementa la interface de RMI `/store/StoreInterface.java`. Los metodos que deben implementar son `save` para guardar una clave y un valor, `get` para recuperar un valor mediante una clave y `delete` para borrar una clave y un valor mediante la clave. Para mas informacion, el proxima seccion se muestra la API del alcenamiento.
+La lógica del almacén clave-valor se encuentra en `/store/Store.java` en donde se implementa la interface de RMI `/store/StoreInterface.java`. Los métodos que deben implementar son `save` para guardar una clave y un valor, `get` para recuperar un valor mediante una clave y `delete` para borrar una clave y un valor mediante la clave. Para mas información, el proxima sección se muestra la API del almacenamiento.
 
 #### API del Almacenamiento clave-valor
 
-| Metodo | Parametros   | Retorno      | Ejemplo          |
+| Método | Parámetros   | Retorno      | Ejemplo          |
 | ------ | ------------ | ------------ | ---------------- |
 | save   | (key, value) | 0, 1, error  | save(key, value) |
 | get    | (key)        | value, error | value = get(key) |
@@ -93,10 +93,10 @@ En las instancias de reenvió, en el caso de que la instancia principal se encue
 devolver una excepción error con los valores: id = 3 y detalle = instancia principal caída.
 
 ### Forwarding 🔄
-La logica de los servidores de reenvio se encuentra en `/forwarding/ForwardingHandler.java` el cual implementa la interface de Thrift `/forwarding/Forwarding.java`. `/forwarding/ForwardingServer` es el encargado de levantar el servidor y `/forwarding/Excep.java` maneja las excepciones, fue creado con thrift tambien.
+La lógica de los servidores de reenvío se encuentra en `/forwarding/ForwardingHandler.java` el cual implementa la interface de Thrift `/forwarding/Forwarding.java`. `/forwarding/ForwardingServer` es el encargado de levantar el servidor y `/forwarding/Excep.java` maneja las excepciones, fue creado con thrift también.
 
 ## Archivo thrift
-El archivo thrift del proyecto se encuentra en la raiz `/Forwarding.thrift`.
+El archivo thrift del proyecto se encuentra en la raíz `/Forwarding.thrift`.
 ```thrift
 # Para el cliente python se comenta la linea de abajo para generar los archivos thrift
 namespace java edu.unam.app.forwarding
@@ -107,7 +107,7 @@ exception Excep {
 }
 
 service Forwarding {
-	#Guardar clave y valor en el almacen
+	#Guardar clave y valor en el almacén
     i32 save(1: string key, 2: string value) throws (1: Excep e),
 
     #Recuperar un valor mediante su clave
@@ -118,18 +118,18 @@ service Forwarding {
 }
 ```
 ## Archivo docker-compose 🐳
-El el archivo `/docker-compose.yml` puede encontrar informacion de como se encuentra construido el entorno de ejecucion el proyecto.
+El el archivo `/docker-compose.yml` puede encontrar información de como se encuentra construido el entorno de ejecución el proyecto.
 
-## Cliente magico 🐍
+## Cliente mágico 🐍
 El cliente consiste en un CLI (Interface de Linea de Comandos) implementado con Python.
 
 Cuando inicie el cliente lo primero que vera es:
 
 ![](img/init_cli.png)
 
-Para saber que puertos tiene disponible puede utilizar el comando `docker ps` estan dentro del rango de 15000-15100, pero debe ver los que estan disponibles ya que no todos estan en escucha, depende a cuanto escalo el servicio *forwarding*.
+Para saber que puertos tiene disponible puede utilizar el comando `docker ps` están dentro del rango de 15000-15100, pero debe ver los que estan disponibles ya que no todos están en escucha, depende a cuanto escalo el servicio *forwarding*.
 
-En el caso de no dar con un puerto en escucha, no se preocupe, que sera informado y podra volver a ingresar un puerto que si este en escucha:
+En el caso de no dar con un puerto en escucha, no se preocupe, que sera informado y podrá volver a ingresar un puerto que si este en escucha:
 
 ![](img/error_port.png)
 
@@ -137,11 +137,11 @@ Ingresando un puerto en escucha vera el siguiente menu:
 
 ![](img/menu.png)
 
-Los errores que pueden tener durante la opeacion con el cliente son los siguientes:
+Los errores que pueden tener durante la operación con el cliente son los siguientes:
 
 ![](img/errors.png)
 
-Durante operaciones normales podra ver las siguientes respuestas:
+Durante operaciones normales podrá ver las siguientes respuestas:
 
 ![](img/normal.png)
 
