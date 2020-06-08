@@ -1,10 +1,29 @@
 # Laboratorio 2 😎
 
-# Integrantes 👦👧
+- [Laboratorio 2 😎](#laboratorio-2-)
+  - [Avances 🌱](#avances-)
+  - [Integrantes 👦👧](#integrantes-)
+  - [Vision 📖](#vision-)
+  - [Requisitos ✋](#requisitos-)
+  - [Comenzar 🚀](#comenzar-)
+  - [Estructura del proyecto 👷](#estructura-del-proyecto-)
+    - [App 🔀](#app-)
+    - [Store 🏪](#store-)
+      - [API del Almacenamiento clave-valor](#api-del-almacenamiento-clave-valor)
+    - [Forwarding 🔄](#forwarding-)
+  - [Archivo thrift](#archivo-thrift)
+  - [Archivo docker-compose 🐳](#archivo-docker-compose-)
+  - [Cliente magico 🐍](#cliente-magico-)
+
+## Avances 🌱
+
+Todos los avances y cambios del proyecto pueden ser vistos en el [changelog](./CHANGELOG.md).
+
+## Integrantes 👦👧
 - Nacimiento, Francisco Martin
 - Senghaas, Evelin Yaneth
 
-# Vision 📖
+## Vision 📖
 Este laboratorio consta de dos partes.
 En la primera parte, se debe crear un almacenamiento de tipo clave-valor en un único sitio accesible
 mediante RMI o RPC.
@@ -12,13 +31,13 @@ En la segunda parte, se debe crear un servicio que constará de varias instancia
 principal es el almacenamiento clave valor y todas las otras instancias procesan solicitudes mediante
 el reenvío de las mismas a la instancia principal. 
 
-# Requisitos ✋
+## Requisitos ✋
 - Docker
 - Docker-compose
 - Python
 - Pip
 
-# Comenzar 🚀
+## Comenzar 🚀
 Para utilizar el proyecto usted debe:
 
 - Clonar el repositorio.
@@ -28,7 +47,7 @@ Para utilizar el proyecto usted debe:
 - Una vez finalizado la instalacion, debe ejecutar `python client.py` para empezar a utlizar el cliente. Tenga en cuenta la version de python que utilice, por lo que puede variar el comando.
 - Para una guia de como utilizar el cliente, vea la seccion del cliente.
 
-# Estructura del proyecto 👷
+## Estructura del proyecto 👷
 ```
 app/
     src/main/java/edu/unam/app
@@ -39,13 +58,13 @@ client.py
 ```
 Dentro del directorio `app/src/` se encuentra toda la logica del almacenamiento clave-valor en el directorio `store/` y la logica de los servidores de reenvio en el directorio `forwarding/`. El almacenamiento de clave-valor y los servidores de reenvio estan implementados en el lenguaje **Java** ☕ y comunican a traves de **RMI**. Los servidores de reenvio y los clientes se comunican a traves de **Apache Thrift**, estando el cliente implementado en **Python** 🐍.
 
-## App 🔀
+### App 🔀
 El archivo `App.java` es el inicio del proyecto, en el se encuentra lo logica para determinar si el proyecto se ejecuta como un almacen de clave-valor o como una servidor de reenvio, mediante el recibiendo o no de un parametro, si recibe un parametro debe ejecutarse como un servidor de reenvio, en caso contrario como un almacenamiento clave-valor.
 
-## Store 🏪
+### Store 🏪
 La logica del almacen clave-valor se encuentra en `/store/Store.java` en donde se implementa la interface de RMI `/store/StoreInterface.java`. Los metodos que deben implementar son `save` para guardar una clave y un valor, `get` para recuperar un valor mediante una clave y `delete` para borrar una clave y un valor mediante la clave. Para mas informacion, el proxima seccion se muestra la API del alcenamiento.
 
-### API del Almacenamiento clave-valor
+#### API del Almacenamiento clave-valor
 
 | Metodo | Parametros   | Retorno      | Ejemplo          |
 | ------ | ------------ | ------------ | ---------------- |
@@ -73,10 +92,10 @@ clave no existe.
 En las instancias de reenvió, en el caso de que la instancia principal se encuentre caída se debe
 devolver una excepción error con los valores: id = 3 y detalle = instancia principal caída.
 
-## Forwarding 🔄
+### Forwarding 🔄
 La logica de los servidores de reenvio se encuentra en `/forwarding/ForwardingHandler.java` el cual implementa la interface de Thrift `/forwarding/Forwarding.java`. `/forwarding/ForwardingServer` es el encargado de levantar el servidor y `/forwarding/Excep.java` maneja las excepciones, fue creado con thrift tambien.
 
-# Archivo thrift
+## Archivo thrift
 El archivo thrift del proyecto se encuentra en la raiz `/Forwarding.thrift`.
 ```thrift
 # Para el cliente python se comenta la linea de abajo para generar los archivos thrift
@@ -98,10 +117,10 @@ service Forwarding {
     string destroy(1: string key) throws (1: Excep e)
 }
 ```
-# Archivo docker-compose 🐳
+## Archivo docker-compose 🐳
 El el archivo `/docker-compose.yml` puede encontrar informacion de como se encuentra construido el entorno de ejecucion el proyecto.
 
-# Cliente magico 🐍
+## Cliente magico 🐍
 El cliente consiste en un CLI (Interface de Linea de Comandos) implementado con Python.
 
 Cuando inicie el cliente lo primero que vera es:
